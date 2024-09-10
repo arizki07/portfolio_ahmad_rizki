@@ -103,9 +103,6 @@
                     </div>
                 </div>
             </div>
-
-
-
             <div class="col-md-6 col-lg-4">
                 <a href="https://github.com/arizki07" class="card card-sponsor" target="_blank" rel="noopener"
                     style="background-image: url(assets/static/sponsor-banner-homepage.svg)"
