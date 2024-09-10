@@ -24,14 +24,13 @@
                     <div class="col">
                         <!-- Page pre-title -->
                         <h2 class="page-title">
-                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px"
-                                class="icon icon-tabler icon-tabler-mail" width="24" height="24"
-                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-prompt">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path
-                                    d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
-                                <path d="M3 7l9 6l9 -6" />
+                                <path d="M5 7l5 5l-5 5" />
+                                <path d="M13 17l6 0" />
                             </svg>
                             {{ $judul }}
                         </h2>
@@ -62,7 +61,7 @@
                                     <path d="M15 20l5 -5" />
                                     <path d="M12 8l4 -4" />
                                 </svg>
-                                Tambah Experience
+                                Tambah Project
                             </a>
                         </div>
                     </div>
@@ -84,7 +83,7 @@
                                 <div class="card-body" style="overflow-x: auto;">
                                     <div style="overflow-x: auto;">
                                         <table style="width:100%; height: 100%;font-size:13px;"
-                                            class="table table-bordered table-vcenter card-table table-hover text-nowrap datatable datatable-experience">
+                                            class="table table-bordered table-vcenter card-table table-hover text-nowrap datatable datatable-project">
                                         </table>
                                     </div>
                                 </div>
@@ -172,20 +171,28 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('experience.store') }}" method="POST">
+                    <form action="{{ route('project.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
+                            <label class="form-label">Foto</label>
+                            <input type="file" name="foto" class="form-control mb-3" required>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Tanggal</label>
-                            <input type="date" class="form-control" name="tanggal" value="{{ date('Y-m-d') }}"
+                            <input type="date" class="form-control" name="tgl_project" value="{{ date('Y-m-d') }}"
                                 placeholder="Input Tanggal">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Jobs</label>
-                            <input type="text" class="form-control" name="jobs" placeholder="Input Tanggal">
+                            <label class="form-label">Nama</label>
+                            <input type="text" class="form-control" name="nama" placeholder="Input Nama Project">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Company</label>
-                            <input type="text" class="form-control" name="company" placeholder="Input Tanggal">
+                            <div class="form-label">Status</div>
+                            <select class="form-select" name="status">
+                                <option value="1">Complete</option>
+                                <option value="2">Progres</option>
+                                <option value="3">Pending</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Keterangan <span
@@ -211,20 +218,28 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editForm" method="POST">
+                    <form id="editForm" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
+                            <label class="form-label">Foto</label>
+                            <input type="file" name="foto" class="form-control mb-3" required>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Tanggal</label>
-                            <input type="date" class="form-control" name="tanggal" value="{{ date('Y-m-d') }}"
+                            <input type="date" class="form-control" name="tgl_project" value="{{ date('Y-m-d') }}"
                                 placeholder="Input Tanggal">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Jobs</label>
-                            <input type="text" class="form-control" name="jobs" placeholder="Input Tanggal">
+                            <label class="form-label">Nama</label>
+                            <input type="text" class="form-control" name="nama" placeholder="Input Nama Project">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Company</label>
-                            <input type="text" class="form-control" name="company" placeholder="Input Tanggal">
+                            <div class="form-label">Status</div>
+                            <select class="form-select" name="status">
+                                <option value="1">Complete</option>
+                                <option value="2">Progres</option>
+                                <option value="3">Pending</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Keterangan <span
@@ -272,7 +287,7 @@
     }
 
     $(document).ready(function() {
-        var tableExperience = $('.datatable-experience').DataTable({
+        var tableProject = $('.datatable-project').DataTable({
             "processing": true,
             "serverSide": false,
             "scrollX": false,
@@ -327,7 +342,7 @@
                 },
             },
             "ajax": {
-                "url": "{{ route('getExperience.index') }}",
+                "url": "{{ route('getProject.index') }}",
                 "data": function(data) {
                     data._token = "{{ csrf_token() }}";
 
@@ -341,27 +356,33 @@
                     searchable: false,
                 },
                 {
+                    title: 'FOTO',
+                    data: 'foto',
+                    name: 'foto',
+                    className: "cuspad0 cuspad1 text-center clickable cursor-pointer"
+                },
+                {
                     title: 'TANGGAL',
-                    data: 'tanggal',
-                    name: 'tanggal',
+                    data: 'tgl_project',
+                    name: 'tgl_project',
                     className: "cuspad0 cuspad1 text-center clickable cursor-pointer"
                 },
                 {
-                    title: 'JOBS',
-                    data: 'jobs',
-                    name: 'jobs',
-                    className: "cuspad0 cuspad1 text-center clickable cursor-pointer"
-                },
-                {
-                    title: 'COMPANY',
-                    data: 'company',
-                    name: 'company',
+                    title: 'NAMA',
+                    data: 'nama',
+                    name: 'nama',
                     className: "cuspad0 cuspad1 text-center cursor-pointer"
                 },
                 {
                     title: 'KETERANGAN',
                     data: 'keterangan',
                     name: 'keterangan',
+                    className: "cuspad0 clickable text-center cursor-pointer"
+                },
+                {
+                    title: 'STATUS',
+                    data: 'status',
+                    name: 'status',
                     className: "cuspad0 clickable text-center cursor-pointer"
                 },
             ],
@@ -387,18 +408,19 @@
 
                 showOverlay();
                 $.ajax({
-                    url: '/experience/edit/' + id,
+                    url: '/project/edit/' + id,
                     type: 'GET',
                     success: function(data) {
                         // Isi form dengan data yang diambil dari server
-                        $('#modal-edit input[name="tanggal"]').val(data.tanggal);
-                        $('#modal-edit input[name="jobs"]').val(data.jobs);
-                        $('#modal-edit input[name="company"]').val(data.company);
+                        $('#modal-edit input[name="tgl_project"]').val(data
+                            .tgl_project);
+                        $('#modal-edit input[name="nama"]').val(data.nama);
+                        $('#modal-edit input[name="status"]').val(data.status);
                         $('#modal-edit textarea[name="keterangan"]').val(data
                             .keterangan);
 
                         // Set form action ke URL update
-                        $('#editForm').attr('action', '/experience/update/' + id);
+                        $('#editForm').attr('action', '/project/update/' + id);
 
                         // Tampilkan modal edit
                         var modal = new bootstrap.Modal(document.getElementById(
@@ -428,18 +450,22 @@
             $('#editForm').on('submit', function(e) {
                 e.preventDefault();
 
-                var formAction = $(this).attr('action'); // URL action dari form
-                var formData = $(this).serialize(); // Data dari form
+                var formAction = $(this).attr('action');
+                var formData = new FormData(this);
 
-                showOverlay(); // Tampilkan overlay saat proses update
+                showOverlay();
 
                 $.ajax({
                     url: formAction,
                     type: 'POST',
                     data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     success: function(response) {
-                        hideOverlay(); // Sembunyikan overlay setelah sukses
-
+                        hideOverlay();
                         Swal.fire({
                             icon: 'success',
                             title: 'Data successfully updated',
@@ -465,8 +491,7 @@
                             .reload(); // Reload tabel DataTables
                     },
                     error: function(xhr, status, error) {
-                        hideOverlay(); // Sembunyikan overlay jika terjadi error
-
+                        hideOverlay();
                         Swal.fire({
                             title: 'Error!',
                             text: 'Failed to update data: ' + xhr
@@ -481,19 +506,20 @@
                 });
             });
 
+
         });
 
         /*-----------------------------------------DESTROY EXPERIENCE-----------------------------------------------*/
-        $('.datatable-experience').on('click', '.remove', function() {
-            var jobs = $(this).data('id');
-            var nama = $(this).data('nama');
+        $('.datatable-project').on('click', '.remove', function() {
+            var nama = $(this).data('id');
+            var tgl = $(this).data('tgl');
             var desc = $(this).data('desc');
             var token = $("meta[name='csrf-token']").attr("content");
             let r = (Math.random() + 1).toString(36).substring(2);
 
             swal.fire({
                 title: 'Hapus Data Permintaan',
-                text: 'Apakah anda yakin ingin menghapus ' + jobs + ', Ket : ' + nama +
+                text: 'Apakah anda yakin ingin menghapus ' + nama + ', Ket : ' + tgl +
                     " " + desc,
                 icon: 'warning',
                 showCancelButton: true,
@@ -508,12 +534,12 @@
                             value: password
                         } = await Swal.fire({
                             title: "Ketik tulisan dibawah untuk menghapus " +
-                                jobs,
+                                nama,
                             html: '<div class="unselectable">' + r +
                                 '</div>',
                             input: "text",
                             inputPlaceholder: "Enter your password to Delete " +
-                                nama,
+                                tgl,
                             showCancelButton: true,
                             cancelButtonColor: '#3085d6',
                             cancelButtonText: 'Batal',
@@ -526,8 +552,8 @@
                         if (password == r) {
                             $.ajax({
                                 type: "DELETE",
-                                url: "{{ route('getExperience.store') }}" +
-                                    '/' + jobs,
+                                url: "{{ route('getProject.store') }}" +
+                                    '/' + nama,
                                 data: {
                                     "_token": "{{ csrf_token() }}",
                                 },
@@ -542,7 +568,7 @@
                                     })
                                 },
                                 success: function(data) {
-                                    tableExperience.ajax.reload();
+                                    tableProject.ajax.reload();
                                     const Toast = Swal.mixin({
                                         toast: true,
                                         position: "top-end",
@@ -560,12 +586,12 @@
                                     Toast.fire({
                                         icon: "success",
                                         title: "Data Permintaan : " +
-                                            nama + " (" + jobs +
+                                            tgl + " (" + nama +
                                             ") Terhapus"
                                     });
                                 },
                                 error: function(data) {
-                                    tableExperience.ajax.reload();
+                                    tableProject.ajax.reload();
                                     console.log('Error:', data
                                         .responseText);
                                     Swal.fire({
@@ -578,7 +604,7 @@
                                 }
                             });
                         } else {
-                            tableExperience.ajax.reload();
+                            tableProject.ajax.reload();
                             Swal.fire({
                                 icon: "error",
                                 title: "Gagal",

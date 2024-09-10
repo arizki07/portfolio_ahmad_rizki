@@ -32,15 +32,12 @@ class Dashboard extends Controller
             $photo = $request->file('photo');
             $photoPath = $photo->store('profile_photos', 'public');
 
-            // Extract the filename from the path
             $photoFilename = basename($photoPath);
 
-            // Delete old photo if exists
             if ($user->foto && Storage::exists('public/profile_photos/' . $user->foto)) {
                 Storage::delete('public/profile_photos/' . $user->foto);
             }
 
-            // Update user photo filename in the database
             $user->foto = $photoFilename;
             $user->save();
         }

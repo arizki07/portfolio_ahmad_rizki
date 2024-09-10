@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\_01Master\ExperienceController;
+use App\Http\Controllers\_01Master\ProjectController;
 use App\Http\Controllers\Auth\Authentication;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Datatables\ExperienceList;
+use App\Http\Controllers\Datatables\ProjectList;
 use App\Http\Controllers\Landing;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('getExperience', ExperienceList::class);
+Route::resource('getProject', ProjectList::class);
 
 Route::controller(Landing::class)->group(function () {
     Route::get('/', 'index');
@@ -42,5 +45,12 @@ Route::middleware('auth')->group(function () {
         Route::get('experience/edit/{id}', 'edit')->name('experience.edit');
         Route::post('experience-store', 'store')->name('experience.store');
         Route::post('experience/update/{id}', 'update')->name('experience.update');
+    });
+
+    Route::controller(ProjectController::class)->group(function () {
+        Route::get('project', 'project');
+        Route::get('project/edit/{id}', 'edit')->name('project.edit');
+        Route::post('project-store', 'store')->name('project.store');
+        Route::post('project/update/{id}', 'update')->name('project.update');
     });
 });
