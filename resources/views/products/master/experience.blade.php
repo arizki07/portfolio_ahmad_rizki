@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+    @include('components.alerts')
 @section('css')
     <style>
         td.cuspad0 {
@@ -12,24 +13,6 @@
         td.cuspad1 {
             text-transform: uppercase;
         }
-
-        .transparent-card {
-            background-color: rgba(255, 255, 255, 0);
-            /* Transparansi 100% */
-            border: 1px solid rgba(0, 0, 0, 0);
-            /* Border transparan 100% */
-            box-shadow: none;
-            /* Menghilangkan shadow */
-            opacity: 20;
-            /* Membuat card sepenuhnya transparan */
-        }
-
-        background-color: rgba(255, 255, 255, 0);
-        /* Transparansi 100% pada latar belakang */
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        /* Border hitam dengan 10% transparansi */
-        box-shadow: none;
-        /* Menghilangkan shadow */
     </style>
 @endsection
 <div class="page">
@@ -50,20 +33,39 @@
                                     d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
                                 <path d="M3 7l9 6l9 -6" />
                             </svg>
-                            Proses Email
+                            {{ $judul }}
                         </h2>
                         <div class="page-pretitle">
                             <ol class="breadcrumb" aria-label="breadcrumbs">
                                 <li class="breadcrumb-item"><a href="{{ url('dashboard') }}"><i class="fa fa-home"></i>
                                         Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="https://pintex.co.id/apps/HR/Recruitment"><i
-                                            class="fa-solid fa-basket-shopping"></i> Pengadaan</a></li>
                                 <li class="breadcrumb-item active" aria-current="page"><a href="#"><i
-                                            class="fa-regular fa-paste"></i> Proses Email</a></li>
+                                            class="fa-regular fa-paste"></i> {{ $judul }}</a></li>
                             </ol>
                         </div>
                     </div>
-
+                    <div class="col-auto ms-auto d-print-none">
+                        <div class="btn-list">
+                            <a href="#" class="btn btn-primary d-none d-sm-inline-block mr-2"
+                                data-bs-toggle="modal" data-bs-target="#modal-add" data-bs-backdrop="static"
+                                data-bs-keyboard="false">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px"
+                                    class="icon icon-tabler icon-tabler-square-half" width="24" height="24"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 4v16" />
+                                    <path
+                                        d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                                    <path d="M12 13l7.5 -7.5" />
+                                    <path d="M12 18l8 -8" />
+                                    <path d="M15 20l5 -5" />
+                                    <path d="M12 8l4 -4" />
+                                </svg>
+                                Tambah Experience
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -95,6 +97,151 @@
     </div>
 </div>
 
+@section('modal')
+    <style>
+        /*-- CSS MODAL --*/
+        <style>.overlay {
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .cv-spinner {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader {
+            width: 48px;
+            height: 48px;
+            display: block;
+            margin: 15px auto;
+            position: relative;
+            color: #ff0000c3;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+
+        .loader::after,
+        .loader::before {
+            content: '';
+            box-sizing: border-box;
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            top: 50%;
+            left: 50%;
+            transform: scale(0.5) translate(0, 0);
+            background-color: #ff0000c3;
+            border-radius: 50%;
+            animation: animloader 1s infinite ease-in-out;
+        }
+
+        .loader::before {
+            background-color: #ffffffba;
+            transform: scale(0.5) translate(-48px, -48px);
+        }
+
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes animloader {
+            50% {
+                transform: scale(1) translate(-50%, -50%);
+            }
+        }
+    </style>
+    {{-- modal add --}}
+    <div class="modal modal-blur fade" id="modal-add" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add {{ $judul }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('experience.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label">Tanggal</label>
+                            <input type="date" class="form-control" name="tanggal" value="{{ date('Y-m-d') }}"
+                                placeholder="Input Tanggal">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Jobs</label>
+                            <input type="text" class="form-control" name="jobs" placeholder="Input Tanggal">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Company</label>
+                            <input type="text" class="form-control" name="company" placeholder="Input Tanggal">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Keterangan <span
+                                    class="form-label-description">56/100</span></label>
+                            <textarea class="form-control" name="keterangan" rows="6" placeholder="Isi keterangan"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end modal add --}}
+    {{-- modal edit --}}
+    <div class="modal modal-blur fade" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add {{ $judul }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label">Tanggal</label>
+                            <input type="date" class="form-control" name="tanggal" value="{{ date('Y-m-d') }}"
+                                placeholder="Input Tanggal">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Jobs</label>
+                            <input type="text" class="form-control" name="jobs" placeholder="Input Tanggal">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Company</label>
+                            <input type="text" class="form-control" name="company" placeholder="Input Tanggal">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Keterangan <span
+                                    class="form-label-description">56/100</span></label>
+                            <textarea class="form-control" name="keterangan" rows="6" placeholder="Isi keterangan"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Updated</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end modal edit --}}
+@endsection
 <script>
     function newexportaction(e, dt, button, config) {
         var self = this;
@@ -140,10 +287,6 @@
                 ['Default', '10', '25', '50', 'Semua']
             ],
             "buttons": [{
-                    extend: 'collection',
-                    text: 'Selection',
-                    buttons: ['selectAll', 'selectNone']
-                }, {
                     extend: 'copyHtml5',
                     className: 'btn btn-teal',
                     text: '<i class="fa fa-copy text-white"></i> Copy',
@@ -161,13 +304,6 @@
                     className: 'btn btn-danger',
                     text: '<i class="fa fa-file-pdf text-white"></i> Pdf',
                 },
-                {
-                    "className": 'btn btn-success',
-                    "text": '<i class="fa-solid fa-file-circle-check"></i> Proses Email',
-                    "action": function(e, node, config) {
-                        $('#modalChecklistEmail').modal('show')
-                    }
-                }
             ],
             "language": {
                 "lengthMenu": "Menampilkan _MENU_",
@@ -197,31 +333,12 @@
 
                 }
             },
-            "initComplete": function(settings, json) {
-                $('html').removeClass('cursor-wait');
-            },
-            columnDefs: [{
-                'targets': 0,
-                "orderable": false,
-                'className': 'select-checkbox',
-                'checkboxes': {
-                    'selectRow': true
-                },
-            }],
-            select: {
-                'style': 'multi',
-                // "selector": 'td:not(:nth-child(2))',
-            },
             "columns": [{
-                    data: 'select_orders',
-                    name: 'select_orders',
-                    className: 'select-checkbox',
+                    data: 'action',
+                    name: 'action',
+                    className: 'cuspad0 clickable cursor-pointer',
                     orderable: false,
                     searchable: false,
-                    extend: 'selectAll',
-                    selectorModifier: {
-                        search: 'applied'
-                    }
                 },
                 {
                     title: 'TANGGAL',
@@ -245,16 +362,232 @@
                     title: 'KETERANGAN',
                     data: 'keterangan',
                     name: 'keterangan',
-                    className: "cuspad0 clickable cursor-pointer"
-                },
-                {
-                    title: 'OPSI',
-                    data: 'action',
-                    name: 'action',
-                    className: "cuspad0 cuspad1 text-center cursor-pointer"
+                    className: "cuspad0 clickable text-center cursor-pointer"
                 },
             ],
 
+        });
+
+        /*-----------------------------------------EDIT EXPERIENCE-----------------------------------------------*/
+        $(document).ready(function() {
+
+            function showOverlay() {
+                $('body').append(
+                    '<div class="overlay"><div class="cv-spinner"><span class="loader"></span></div></div>'
+                );
+            }
+
+            function hideOverlay() {
+                $('.overlay').remove();
+            }
+
+            // Tombol Edit
+            $(document).on('click', '.edit-btn', function() {
+                var id = $(this).data('id');
+
+                showOverlay();
+                $.ajax({
+                    url: '/experience/edit/' + id,
+                    type: 'GET',
+                    success: function(data) {
+                        // Isi form dengan data yang diambil dari server
+                        $('#modal-edit input[name="tanggal"]').val(data.tanggal);
+                        $('#modal-edit input[name="jobs"]').val(data.jobs);
+                        $('#modal-edit input[name="company"]').val(data.company);
+                        $('#modal-edit textarea[name="keterangan"]').val(data
+                            .keterangan);
+
+                        // Set form action ke URL update
+                        $('#editForm').attr('action', '/experience/update/' + id);
+
+                        // Tampilkan modal edit
+                        var modal = new bootstrap.Modal(document.getElementById(
+                            'modal-edit'));
+                        modal.show();
+
+                        hideOverlay
+                            (); // Sembunyikan overlay setelah data berhasil diambil
+                    },
+                    error: function() {
+                        hideOverlay
+                            (); // Sembunyikan overlay jika gagal mengambil data
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Failed to fetch data',
+                            icon: 'error',
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true
+                        });
+                    }
+                });
+            });
+
+            // Form Submit untuk update data
+            $('#editForm').on('submit', function(e) {
+                e.preventDefault();
+
+                var formAction = $(this).attr('action'); // URL action dari form
+                var formData = $(this).serialize(); // Data dari form
+
+                showOverlay(); // Tampilkan overlay saat proses update
+
+                $.ajax({
+                    url: formAction,
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        hideOverlay(); // Sembunyikan overlay setelah sukses
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Data successfully updated',
+                            position: 'top-end',
+                            toast: true,
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter',
+                                    Swal.stopTimer);
+                                toast.addEventListener('mouseleave',
+                                    Swal.resumeTimer);
+                            }
+                        }).then(() => {
+                            location
+                                .reload(); // Reload halaman setelah notifikasi
+                        });
+
+                        $('#modal-edit').modal(
+                            'hide'); // Tutup modal setelah sukses
+                        $('#datatable-experience').DataTable().ajax
+                            .reload(); // Reload tabel DataTables
+                    },
+                    error: function(xhr, status, error) {
+                        hideOverlay(); // Sembunyikan overlay jika terjadi error
+
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Failed to update data: ' + xhr
+                                .responseText,
+                            icon: 'error',
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true
+                        });
+                    }
+                });
+            });
+
+        });
+
+        /*-----------------------------------------DESTROY EXPERIENCE-----------------------------------------------*/
+        $('.datatable-experience').on('click', '.remove', function() {
+            var jobs = $(this).data('id');
+            var nama = $(this).data('nama');
+            var desc = $(this).data('desc');
+            var token = $("meta[name='csrf-token']").attr("content");
+            let r = (Math.random() + 1).toString(36).substring(2);
+
+            swal.fire({
+                title: 'Hapus Data Permintaan',
+                text: 'Apakah anda yakin ingin menghapus ' + jobs + ', Ket : ' + nama +
+                    " " + desc,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: '<i class="fa-regular fa-trash-can"></i> Hapus',
+                cancelButtonText: 'Batal',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    (async () => {
+                        const {
+                            value: password
+                        } = await Swal.fire({
+                            title: "Ketik tulisan dibawah untuk menghapus " +
+                                jobs,
+                            html: '<div class="unselectable">' + r +
+                                '</div>',
+                            input: "text",
+                            inputPlaceholder: "Enter your password to Delete " +
+                                nama,
+                            showCancelButton: true,
+                            cancelButtonColor: '#3085d6',
+                            cancelButtonText: 'Batal',
+                            confirmButtonText: 'Ok',
+                            inputAttributes: {
+                                autocapitalize: "off",
+                                autocorrect: "off"
+                            },
+                        });
+                        if (password == r) {
+                            $.ajax({
+                                type: "DELETE",
+                                url: "{{ route('getExperience.store') }}" +
+                                    '/' + jobs,
+                                data: {
+                                    "_token": "{{ csrf_token() }}",
+                                },
+                                beforeSend: function() {
+                                    Swal.fire({
+                                        title: 'Mohon Menunggu',
+                                        html: '<center><lottie-player src="https://lottie.host/54b33864-47d1-4f30-b38c-bc2b9bdc3892/1xkjwmUkku.json"  background="transparent"  speed="1"  style="width: 400px; height: 400px;"  loop autoplay></lottie-player></center><br><h1 class="h4">Sedang menghapus data, Proses mungkin membutuhkan beberapa menit. <br><br><b class="text-danger">(Jangan menutup jendela ini, bisa mengakibatkan error)</b></h1>',
+                                        timerProgressBar: true,
+                                        showConfirmButton: false,
+                                        allowOutsideClick: false,
+                                        allowEscapeKey: false,
+                                    })
+                                },
+                                success: function(data) {
+                                    tableExperience.ajax.reload();
+                                    const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: "top-end",
+                                        showConfirmButton: false,
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                        didOpen: (toast) => {
+                                            toast.onmouseenter =
+                                                Swal.stopTimer;
+                                            toast.onmouseleave =
+                                                Swal
+                                                .resumeTimer;
+                                        }
+                                    });
+                                    Toast.fire({
+                                        icon: "success",
+                                        title: "Data Permintaan : " +
+                                            nama + " (" + jobs +
+                                            ") Terhapus"
+                                    });
+                                },
+                                error: function(data) {
+                                    tableExperience.ajax.reload();
+                                    console.log('Error:', data
+                                        .responseText);
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Gagal!',
+                                        text: 'Error: ' + data
+                                            .responseText,
+                                        showConfirmButton: true,
+                                    });
+                                }
+                            });
+                        } else {
+                            tableExperience.ajax.reload();
+                            Swal.fire({
+                                icon: "error",
+                                title: "Gagal",
+                                text: "Teks yang diketik tidak sama",
+                            });
+                        }
+                    })()
+                }
+            })
         });
     });
 </script>

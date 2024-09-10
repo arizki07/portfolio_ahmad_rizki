@@ -38,5 +38,8 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(ExperienceController::class)->group(function () {
         Route::get('experience', 'experience');
+        Route::get('experience/edit/{id}', 'edit')->name('experience.edit');
+        Route::post('experience-store', 'store')->name('experience.store');
+        Route::post('experience/update/{id}', 'update')->name('experience.update');
     });
 });
