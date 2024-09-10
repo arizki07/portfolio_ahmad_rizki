@@ -54,7 +54,7 @@
                 <div class="img-about img d-flex align-items-stretch">
                     <div class="overlay"></div>
                     <div class="img d-flex align-self-stretch align-items-center"
-                        style="background-image:url(landing/images/rizki.jpg);">
+                        style="background-image:url({{ asset('landing/images/rizki.jpg') }});">
                     </div>
                 </div>
             </div>
