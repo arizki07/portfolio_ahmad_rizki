@@ -214,6 +214,7 @@
                     </a>
                 </span>
             </div>
+            <a href="/" type="button" class="btn btn-danger">Back to home</a>
         </div>
     </div>
 </body>

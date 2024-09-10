@@ -20,6 +20,82 @@
         .carousel .row {
             justify-content: center;
         }
+
+        .card-img-top {
+            max-height: 200px;
+            /* Adjust as needed */
+            object-fit: cover;
+            /* Ensures the image covers the card area */
+        }
+
+        .zoom-image {
+            transition: transform 0.3s ease;
+        }
+
+        .card-img-top:hover {
+            transform: scale(1.05);
+        }
+
+        .card {
+            max-width: 350px;
+            /* Increased card width */
+            margin: 0 auto;
+            /* Center align the card within the column */
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-dot-animated {
+            animation: blink 1s infinite;
+        }
+
+        .status-green {
+            background-color: green;
+        }
+
+        .status-blue {
+            background-color: blue;
+        }
+
+        .status-red {
+            background-color: red;
+        }
+
+        .text-green {
+            color: green;
+        }
+
+        .text-blue {
+            color: blue;
+        }
+
+        .text-red {
+            color: red;
+        }
+
+        .text-gray {
+            color: gray;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
     </style>
 @endsection
 
@@ -203,71 +279,75 @@
                 <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
             </div>
         </div>
-        <div class="row no-gutters">
-            <div class="col-md-4">
-                <div class="project img ftco-animate d-flex justify-content-center align-items-center"
-                    style="background-image: url(landing/images/work-1.jpg);">
-                    <div class="overlay"></div>
-                    <div class="text text-center p-4">
-                        <h3><a href="#">Branding &amp; Illustration Design</a></h3>
-                        <span>Web Design</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="project img ftco-animate d-flex justify-content-center align-items-center"
-                    style="background-image: url(landing/images/work-2.jpg);">
-                    <div class="overlay"></div>
-                    <div class="text text-center p-4">
-                        <h3><a href="#">Branding &amp; Illustration Design</a></h3>
-                        <span>Web Design</span>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-md-4">
-                <div class="project img ftco-animate d-flex justify-content-center align-items-center"
-                    style="background-image: url(landing/images/work-3.jpg);">
-                    <div class="overlay"></div>
-                    <div class="text text-center p-4">
-                        <h3><a href="#">Branding &amp; Illustration Design</a></h3>
-                        <span>Web Design</span>
+        @if ($project->isEmpty())
+            <!-- Display Alert when no projects are available -->
+            <div class="alert alert-warning" role="alert">
+                <div class="d-flex">
+                    <div>
+                        <!-- Download SVG icon from http://tabler-icons.io/i/exclamation-triangle -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24"
+                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12 3l9 18H3l9 -18z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="alert-title">No Projects Available</h4>
+                        <div class="text-secondary">It seems we don't have any projects to show at the moment. Please
+                            check back later!</div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="project img ftco-animate d-flex justify-content-center align-items-center"
-                    style="background-image: url(landing/images/work-4.jpg);">
-                    <div class="overlay"></div>
-                    <div class="text text-center p-4">
-                        <h3><a href="#">Branding &amp; Illustration Design</a></h3>
-                        <span>Web Design</span>
+        @else
+            <div class="row no-gutters">
+                @foreach ($project->take(3) as $item)
+                    <div class="col-md-4 mb-4">
+                        <div class="card" style="max-width: 350px;"> <!-- Increased width -->
+                            <img src="{{ asset('storage/project/' . $item->foto) }}" class="card-img-top zoom-image"
+                                alt="{{ $item->nama }}">
+                            <div class="card-body">
+                                <div class="text mt-3">
+                                    <h3 class="heading"><a href="single.html">{{ $item->nama }}</a></h3>
+                                    <div class="d-flex align-items-center mb-3 meta">
+                                        <p class="mb-0">
+                                            <span class="mr-2">
+                                                <span>{{ \Carbon\Carbon::parse($item->tgl_project)->format('d M, Y') }}</span>
+                                            </span>
+                                        <div class="status">
+                                            @if ($item->status == 1)
+                                                <span class="status-dot status-dot-animated status-green"
+                                                    style="font-size:11px"></span> <b class="text-green">Complete</b>
+                                            @elseif ($item->status == 2)
+                                                <span class="status-dot status-dot-animated status-blue"
+                                                    style="font-size:11px"></span> <b class="text-blue">Progress</b>
+                                            @elseif ($item->status == 3)
+                                                <span class="status-dot status-dot-animated status-red"
+                                                    style="font-size:11px"></span> <b class="text-red">Pending</b>
+                                            @else
+                                                <span class="status-dot status-dot-animated text-gray"
+                                                    style="font-size:11px"></span> <b class="text-gray">Unknown</b>
+                                            @endif
+                                        </div>
+                                        </p>
+                                    </div>
+                                    <p>A small river named Duden flows by their place and supplies it with the necessary
+                                        regelialia.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
-            <div class="col-md-4">
-                <div class="project img ftco-animate d-flex justify-content-center align-items-center"
-                    style="background-image: url(landing/images/work-5.jpg);">
-                    <div class="overlay"></div>
-                    <div class="text text-center p-4">
-                        <h3><a href="#">Branding &amp; Illustration Design</a></h3>
-                        <span>Web Design</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="project img ftco-animate d-flex justify-content-center align-items-center"
-                    style="background-image: url(landing/images/work-6.jpg);">
-                    <div class="overlay"></div>
-                    <div class="text text-center p-4">
-                        <h3><a href="#">Branding &amp; Illustration Design</a></h3>
-                        <span>Web Design</span>
-                    </div>
-                </div>
-            </div>
+        @endif
+
+        <div class="text-center mt-4">
+            <a href="{{ url('maintenance') }}" class="btn btn-primary">View All Projects</a>
         </div>
     </div>
 </section>
+
 
 <section class="ftco-section ftco-no-pt ftco-no-pb ftco-counter img" id="section-counter">
     <div class="container-fluid px-md-5">
