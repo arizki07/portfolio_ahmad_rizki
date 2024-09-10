@@ -156,11 +156,23 @@
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                     aria-label="Open user menu">
-                    <span class="avatar avatar-sm"
-                        style="background-image: url(assets/static/avatars/000m.jpg)"></span>
+                    @if (auth()->user()->foto)
+                        <span class="avatar avatar-sm"
+                            style="background-image: url({{ asset('storage/profile_photos/' . auth()->user()->foto) }})"></span>
+                    @else
+                        <span class="avatar avatar-sm" style="background-image: url(default-foto.png)"></span>
+                    @endif
+
                     <div class="d-none d-xl-block ps-2">
-                        <div>Paweł Kuna</div>
-                        <div class="mt-1 small text-secondary">UI Designer</div>
+                        <div>{{ Auth::user()->name }}</div>
+                        <div class="mt-1 small text-secondary">
+                            <span
+                                class="status-dot status-dot-animated {{ auth()->user()->status ? 'status-blue' : 'status-gray' }}"
+                                style="font-size:11px"></span>
+                            <b class="{{ auth()->user()->status ? 'text-blue' : 'text-gray' }}">
+                                {{ auth()->user()->status ? 'Activated' : 'Inactivated' }}
+                            </b>
+                        </div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">

@@ -3,17 +3,48 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class Dashboard extends Controller
 {
 
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
         return view('products.dashboard');
+    }
+
+    public function updatePhoto(Request $request)
+    {
+        $request->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = auth()->user();
+
+        // Handle the file upload
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $photoPath = $photo->store('profile_photos', 'public');
+
+            // Extract the filename from the path
+            $photoFilename = basename($photoPath);
+
+            // Delete old photo if exists
+            if ($user->foto && Storage::exists('public/profile_photos/' . $user->foto)) {
+                Storage::delete('public/profile_photos/' . $user->foto);
+            }
+
+            // Update user photo filename in the database
+            $user->foto = $photoFilename;
+            $user->save();
+        }
+
+        return redirect()->back()->with('success', 'Photo updated successfully.');
     }
 }

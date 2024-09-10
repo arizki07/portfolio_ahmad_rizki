@@ -34,6 +34,7 @@ Route::controller(Authentication::class)->group(function () {
 Route::middleware('auth')->group(function () {
     Route::controller(Dashboard::class)->group(function () {
         Route::get('dashboard', 'index');
+        Route::post('/user/update-photo', 'updatePhoto')->name('user.updatePhoto');
     });
 
     Route::controller(ExperienceController::class)->group(function () {
