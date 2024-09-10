@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\_01Master\ExperienceController;
 use App\Http\Controllers\Auth\Authentication;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\Datatables\ExperienceList;
 use App\Http\Controllers\Landing;
 use Illuminate\Support\Facades\Route;
 
@@ -16,15 +18,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::resource('getExperience', ExperienceList::class);
+
 Route::controller(Landing::class)->group(function () {
     Route::get('/', 'index');
-});
-
-Route::controller(Dashboard::class)->group(function () {
-    Route::get('dashboard', 'index');
+    Route::get('maintenance', 'maintenance');
 });
 
 Route::controller(Authentication::class)->group(function () {
-    Route::get('login', 'index');
+    Route::get('login', 'index')->name('login');
     Route::post('login-post', 'authenticate')->name('login.post');
+    Route::get('logout', 'logout')->name('logout');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::controller(Dashboard::class)->group(function () {
+        Route::get('dashboard', 'index');
+    });
+
+    Route::controller(ExperienceController::class)->group(function () {
+        Route::get('experience', 'experience');
+    });
 });

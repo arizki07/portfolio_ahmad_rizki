@@ -13,6 +13,8 @@
 @yield('css')
 
 <body>
+    @include('shared/script')
+
     <script src="assets/dist/js/demo-theme.min.js?1692870487"></script>
     <div class="page">
         <!-- Sidebar -->
@@ -25,7 +27,6 @@
         </div>
     </div>
     @yield('modal')
-    @include('shared/script')
 </body>
 
 </html>
