@@ -332,8 +332,7 @@
                                         </div>
                                         </p>
                                     </div>
-                                    <p>A small river named Duden flows by their place and supplies it with the necessary
-                                        regelialia.</p>
+                                    <p>{{ $item->keterangan }}.</p>
                                 </div>
                             </div>
                         </div>
