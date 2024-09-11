@@ -305,11 +305,11 @@
                 @foreach ($project->take(3) as $item)
                     <div class="col-md-4 mb-4">
                         <div class="card" style="max-width: 350px;"> <!-- Increased width -->
-                            <img src="{{ asset('storage/project/' . $item->foto) }}" class="card-img-top zoom-image"
-                                alt="{{ $item->nama }}">
+                            <img src="{{ asset('storage/my_project/' . $item->foto) }}"
+                                class="card-img-top zoom-image" alt="{{ $item->nama }}">
                             <div class="card-body">
                                 <div class="text mt-3">
-                                    <h3 class="heading"><a href="single.html">{{ $item->nama }}</a></h3>
+                                    <h3 class="heading"><a href="#">{{ $item->nama }}</a></h3>
                                     <div class="d-flex align-items-center mb-3 meta">
                                         <p class="mb-0">
                                             <span class="mr-2">

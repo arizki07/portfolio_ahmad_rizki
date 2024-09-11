@@ -47,7 +47,7 @@
                     <div class="col-auto ms-auto d-print-none">
                         <div class="btn-list">
                             <a href="#" class="btn btn-primary d-none d-sm-inline-block mr-2"
-                                data-bs-toggle="modal" data-bs-target="#modal-add" data-bs-backdrop="static"
+                                data-bs-toggle="modal" data-bs-target="#modal-add-experience" data-bs-backdrop="static"
                                 data-bs-keyboard="false">
                                 <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px"
                                     class="icon icon-tabler icon-tabler-square-half" width="24" height="24"
@@ -164,7 +164,7 @@
         }
     </style>
     {{-- modal add --}}
-    <div class="modal modal-blur fade" id="modal-add" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal modal-blur fade" id="modal-add-experience" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -172,7 +172,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('experience.store') }}" method="POST">
+                    {{-- <form action="{{ route('experience.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">Periode (Contoh: 2022 - Sekarang atau 2010 - 2014)</label>
@@ -192,11 +192,15 @@
                                     class="form-label-description">56/100</span></label>
                             <textarea class="form-control" name="keterangan" rows="6" placeholder="Isi keterangan"></textarea>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">Foto</label>
+                            <input type="file" name="logo" class="form-control mb-3" required>
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                         </div>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
         </div>

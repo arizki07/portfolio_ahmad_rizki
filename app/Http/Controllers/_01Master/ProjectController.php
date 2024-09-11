@@ -45,7 +45,7 @@ class ProjectController extends Controller
         if ($request->hasFile('foto')) {
             $fotoFile = $request->file('foto');
 
-            $projectPath = $fotoFile->store('public/project');
+            $projectPath = $fotoFile->store('public/my_project');
 
             $projectFilename = basename($projectPath);
             $project->foto = $projectFilename;
@@ -91,7 +91,7 @@ class ProjectController extends Controller
         // Jika ada foto baru diunggah, perbarui foto
         if ($request->hasFile('foto')) {
             $fotoFile = $request->file('foto');
-            $projectPath = $fotoFile->store('public/project');
+            $projectPath = $fotoFile->store('public/my_project');
             $projectFilename = basename($projectPath);
             $project->foto = $projectFilename;
         }

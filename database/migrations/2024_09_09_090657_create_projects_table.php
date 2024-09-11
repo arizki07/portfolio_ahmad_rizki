@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('foto');
             $table->date('tgl_project');
             $table->string('nama');
-            $table->string('keterangan');
+            $table->text('keterangan');
             $table->string('status');
             $table->timestamps();
         });

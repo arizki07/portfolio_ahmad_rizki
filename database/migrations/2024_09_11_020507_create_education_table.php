@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('periode');
             $table->string('jurusan');
             $table->string('school');
-            $table->string('keterangan');
+            $table->text('keterangan');
             $table->timestamps();
         });
     }

@@ -14,5 +14,6 @@ class Experience extends Model
         'jobs',
         'keterangan',
         'company',
+        'logo'
     ];
 }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('jobs');
             $table->string('company');
             $table->text('keterangan');
+            $table->string('logo');
             $table->timestamps();
         });
     }
