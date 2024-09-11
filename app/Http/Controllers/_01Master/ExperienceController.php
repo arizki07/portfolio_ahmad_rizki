@@ -29,7 +29,7 @@ class ExperienceController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'tanggal' => 'required|date',
+            'periode' => 'required|string',
             'jobs' => 'required',
             'company' => 'required',
             'keterangan' => 'required',
@@ -40,7 +40,7 @@ class ExperienceController extends Controller
         }
 
         $experience = new Experience();
-        $experience->tanggal = $request->input('tanggal');
+        $experience->periode = $request->input('periode');
         $experience->jobs = $request->input('jobs');
         $experience->company = $request->input('company');
         $experience->keterangan = $request->input('keterangan');

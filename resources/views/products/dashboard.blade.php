@@ -33,7 +33,7 @@
 <div class="page-body">
     <div class="container-xl">
         <div class="row row-deck row-cards">
-            <div class="col-8">
+            <div class="col-12">
                 <div class="card card-md">
                     <div class="card-stamp card-stamp-lg">
                         <div class="card-stamp-icon bg-primary">
@@ -79,7 +79,7 @@
                                             </form>
                                         @endif
                                         <!-- Display user data in disabled form fields -->
-                                        <form>
+                                        <form class="mt-3">
                                             <div class="mb-3">
                                                 <input type="text" id="name" class="form-control"
                                                     value="{{ auth()->user()->name }}" disabled>
@@ -103,14 +103,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4">
-                <a href="https://github.com/arizki07" class="card card-sponsor" target="_blank" rel="noopener"
-                    style="background-image: url(assets/static/sponsor-banner-homepage.svg)"
-                    aria-label="Sponsor Tabler!">
-                    <div class="card-body"></div>
-                </a>
-            </div>
-
+        </div>
+        <div class="col-md-6 col-lg-12">
+            <a href="https://github.com/arizki07" class="card card-sponsor" target="_blank" rel="noopener"
+                style="background-image: url(assets/static/sponsor-banner-homepage.svg)" aria-label="Sponsor Tabler!">
+                <div class="card-body"></div>
+            </a>
         </div>
     </div>
 </div>

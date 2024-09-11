@@ -175,9 +175,9 @@
                     <form action="{{ route('experience.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label class="form-label">Tanggal</label>
-                            <input type="date" class="form-control" name="tanggal" value="{{ date('Y-m-d') }}"
-                                placeholder="Input Tanggal">
+                            <label class="form-label">Periode (Contoh: 2022 - Sekarang atau 2010 - 2014)</label>
+                            <input type="text" class="form-control" name="periode"
+                                placeholder="Masukkan periode, contoh: 2022 - Sekarang">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Jobs</label>
@@ -342,8 +342,8 @@
                 },
                 {
                     title: 'TANGGAL',
-                    data: 'tanggal',
-                    name: 'tanggal',
+                    data: 'periode',
+                    name: 'periode',
                     className: "cuspad0 cuspad1 text-center clickable cursor-pointer"
                 },
                 {
@@ -391,7 +391,7 @@
                     type: 'GET',
                     success: function(data) {
                         // Isi form dengan data yang diambil dari server
-                        $('#modal-edit input[name="tanggal"]').val(data.tanggal);
+                        $('#modal-edit input[name="periode"]').val(data.periode);
                         $('#modal-edit input[name="jobs"]').val(data.jobs);
                         $('#modal-edit input[name="company"]').val(data.company);
                         $('#modal-edit textarea[name="keterangan"]').val(data

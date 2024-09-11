@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('experiences', function (Blueprint $table) {
             $table->id();
-            $table->date('tanggal');
+            $table->string('periode');
             $table->string('jobs');
             $table->string('company');
-            $table->string('keterangan');
+            $table->text('keterangan');
             $table->timestamps();
         });
     }
