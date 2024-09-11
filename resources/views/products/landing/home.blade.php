@@ -23,9 +23,7 @@
 
         .card-img-top {
             max-height: 200px;
-            /* Adjust as needed */
             object-fit: cover;
-            /* Ensures the image covers the card area */
         }
 
         .zoom-image {
@@ -38,9 +36,7 @@
 
         .card {
             max-width: 350px;
-            /* Increased card width */
             margin: 0 auto;
-            /* Center align the card within the column */
         }
 
         .status-dot {
@@ -83,6 +79,27 @@
             color: gray;
         }
 
+        .heading {
+            font-size: 16px;
+            /* Smaller font size for project name */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            /* Truncate long names */
+        }
+
+        .card-body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta {
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-between;
+        }
+
         @keyframes blink {
             0% {
                 opacity: 1;
@@ -123,14 +140,14 @@
     </div>
 </section>
 
-<section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="about-section">
+<section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb mt-5" id="about-section">
     <div class="container">
         <div class="row d-flex no-gutters">
             <div class="col-md-6 col-lg-6 d-flex">
                 <div class="img-about img d-flex align-items-stretch">
                     <div class="overlay"></div>
                     <div class="img d-flex align-self-stretch align-items-center"
-                        style="background-image:url({{ asset('landing/images/rizki.jpg') }});">
+                        style="background-image:url(landing/images/rizki.jpg); width: 100%; background-size: cover; background-position: center; min-height: 300px;">
                     </div>
                 </div>
             </div>
@@ -139,45 +156,28 @@
                     <div class="col-md-12 heading-section ftco-animate">
                         <h1 class="big">About</h1>
                         <h2 class="mb-4">About Me</h2>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary
-                            regelialia.</p>
-                        <ul class="about-info mt-4 px-md-0 px-2">
-                            <li class="d-flex align-items-center">
-                                <i class="fas fa-laptop-code"></i>
-                                <span>Full Stack Developer</span>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <i class="fas fa-envelope"></i>
-                                <span> Contact@ahmadrizki.my.id</span>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <i class="fas fa-graduation-cap"></i>
-                                <span>Bachelor of Informatic Engineering</span>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <i class="fas fa-birthday-cake"></i>
-                                <span>I am 23 years old</span>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <i class="fas fa-briefcase"></i>
-                                <span>2+ Years of Experience</span>
-                            </li>
-                        </ul>
+                        <p style="text-align: justify;">I am a Bachelor's degree graduate of Informatics Engineering
+                            from Muhammadiyah University of
+                            Cirebon with a GPA of 3.11. I have expertise in web development, including the creation and
+                            improvement of web-based applications. For approximately 2 years, I worked as a freelancer
+                            at Web Crafser Cirebon, where I successfully completed various challenging projects and
+                            received feedback from clients. Currently, I work as an IT Support at PT International
+                            Textile Plumbon, I handle Hardware and Software. I am a person who enjoys working in a team,
+                            is result-oriented, and has a quick ability to understand and master new fields. With a
+                            combination of strong technical expertise and interpersonal skills, I always try to give the
+                            best contribution to every project I work on.</p>
                     </div>
                 </div>
                 <div class="counter-wrap ftco-animate d-flex mt-md-3">
                     <div class="text">
-                        <p class="mb-4">
-                            <span class="number" data-number="120">0</span>
-                            <span>Project complete</span>
-                        </p>
-                        <p><a href="#" class="btn btn-primary py-3 px-3">Download CV</a></p>
+                        <p><a href="#" class="btn btn-primary py-3 px-3">Preview CV</a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 
 <br>
 <section class="ftco-section ftco-partner">
@@ -332,7 +332,6 @@
                                         </div>
                                         </p>
                                     </div>
-                                    <p>{{ $item->keterangan }}.</p>
                                 </div>
                             </div>
                         </div>
@@ -388,7 +387,7 @@
 </section>
 
 
-<section class="ftco-section" id="blog-section">
+{{-- <section class="ftco-section" id="blog-section">
     <div class="container">
         <div class="row justify-content-center mb-5 pb-5">
             <div class="col-md-7 heading-section text-center ftco-animate">
@@ -460,9 +459,9 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 
-<section class="ftco-section ftco-hireme img" style="background-image: url(landing/images/bg_1.jpg)">
+<section class="ftco-section ftco-hireme img mt-3" style="background-image: url(landing/images/bg_1.jpg)">
     <div class="overlay"></div>
     <div class="container">
         <div class="row justify-content-center">

@@ -82,7 +82,7 @@ class ProjectList extends Controller
                 })
 
                 ->addColumn('foto', function ($row) {
-                    return '<img src="' . Storage::url('project/' . $row->foto) . '" alt="Project" width="40" height="40" style="border-radius: 50%; object-fit: cover;">';
+                    return '<img src="' . Storage::url('my_project/' . $row->foto) . '" alt="Project" width="40" height="40" style="border-radius: 50%; object-fit: cover;">';
                 })
 
                 ->rawColumns(['action', 'status', 'foto'])

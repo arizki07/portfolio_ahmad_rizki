@@ -47,30 +47,62 @@
             width: 50px;
             height: auto;
         }
+
+        /* CSS BLUR */
+        .background-blur {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('landing/images/image_1.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(4px);
+            z-index: -1;
+            /* Ensure the blur is behind the text */
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Optional: Adds a dark overlay */
+            z-index: 0;
+            /* Layer on top of the blurred background but behind content */
+        }
+
+        .ftco-section {
+            position: relative;
+            z-index: 1;
+            /* Ensures the content (text and buttons) stays in front */
+        }
     </style>
 @endsection
-<section class="ftco-section ftco-hireme img"
-    style="background-image: url(landing/images/image_1.jpg); min-height: 560px;">
+<section class="ftco-section ftco-hireme img" style="position: relative; min-height: 460px;">
+    <div class="background-blur"></div>
     <div class="overlay"></div>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-7 ftco-animate text-center">
-                <h2 style="margin-button: 20px"><span>About</span> me</h2>
+                <h2 style="margin-bottom: 20px"><span>About</span> me</h2>
                 <p class="mb-0"><a href="/" class="btn btn-primary py-3 px-5">Back to home</a></p>
             </div>
         </div>
     </div>
 </section>
-<br>
 
-<section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="about-section">
+<section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb mt-5" id="about-section">
     <div class="container">
         <div class="row d-flex no-gutters">
             <div class="col-md-6 col-lg-6 d-flex">
                 <div class="img-about img d-flex align-items-stretch">
                     <div class="overlay"></div>
                     <div class="img d-flex align-self-stretch align-items-center"
-                        style="background-image:url(landing/images/rizki.jpg);">
+                        style="background-image:url(landing/images/rizki.jpg); width: 100%; background-size: cover; background-position: center; min-height: 300px;">
                     </div>
                 </div>
             </div>
@@ -79,7 +111,8 @@
                     <div class="col-md-12 heading-section ftco-animate">
                         <h1 class="big">About</h1>
                         <h2 class="mb-4">About Me</h2>
-                        <p>I am a Bachelor's degree graduate of Informatics Engineering from Muhammadiyah University of
+                        <p style="text-align: justify;">I am a Bachelor's degree graduate of Informatics Engineering
+                            from Muhammadiyah University of
                             Cirebon with a GPA of 3.11. I have expertise in web development, including the creation and
                             improvement of web-based applications. For approximately 2 years, I worked as a freelancer
                             at Web Crafser Cirebon, where I successfully completed various challenging projects and
@@ -99,6 +132,7 @@
         </div>
     </div>
 </section>
+
 
 <section class="ftco-section ftco-no-pb goto-here" id="resume-section">
     <div class="container">
@@ -146,7 +180,7 @@
                                 <span class="position">{{ $item->company }}</span>
                                 <p class="keterangan">{{ $item->keterangan }}</p>
                             </div>
-                            {{-- <img src="landing/images/umc.png" alt="Logo" class="logo-img"> --}}
+                            <img src="{{ asset('storage/my_logo/' . $item->logo) }}" alt="Logo" class="logo-img">
                         </div>
                     @endforeach
                 </div>

@@ -172,7 +172,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    {{-- <form action="{{ route('experience.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('experience.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">Periode (Contoh: 2022 - Sekarang atau 2010 - 2014)</label>
@@ -200,7 +200,7 @@
                             <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                         </div>
-                    </form> --}}
+                    </form>
                 </div>
             </div>
         </div>

@@ -33,7 +33,7 @@ class ExperienceController extends Controller
             'jobs' => 'required',
             'company' => 'required',
             'keterangan' => 'required',
-            'foto' => 'required|image|mimes:png,jpg,jpeg',
+            'logo' => 'required|image|mimes:png,jpg,jpeg',
         ]);
 
         if ($validator->fails()) {
@@ -47,7 +47,7 @@ class ExperienceController extends Controller
             $logoPath = $fotoFile->store('public/my_logo');
 
             $logoFilename = basename($logoPath);
-            $experience->foto = $logoFilename;
+            $experience->logo = $logoFilename;
         }
         $experience->periode = $request->input('periode');
         $experience->jobs = $request->input('jobs');

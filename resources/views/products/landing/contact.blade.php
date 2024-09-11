@@ -18,7 +18,9 @@
                         </div>
                         <div>
                             <h3 class="mb-4">Address</h3>
-                            <p>198 West 21th Street, Suite 721 New York NY 10016</p>
+                            @foreach ($users as $item)
+                                <p>{{ $item->alamat }}</p>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -40,7 +42,7 @@
                         </div>
                         <div>
                             <h3 class="mb-4">Email Address</h3>
-                            <p><a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+                            <p><a href="mailto:ahmadrizki0704@gmail.com">ahmadrizki0704@gmail.com</a></p>
                         </div>
                     </div>
                 </div>
@@ -51,7 +53,7 @@
                         </div>
                         <div>
                             <h3 class="mb-4">Website</h3>
-                            <p><a href="#">yoursite.com</a></p>
+                            <p><a href="https://ahmadrizki.my.id/">ahmadrizki.my.id</a></p>
                         </div>
                     </div>
                 </div>
@@ -80,7 +82,7 @@
                 </div>
 
                 <div class="col-md-6 d-flex">
-                    <div class="img" style="background-image: url(landing/images/about.jpg);"></div>
+                    <div class="img" style="background-image: url(landing/images/iki.jpg);"></div>
                 </div>
             </div>
         </div>

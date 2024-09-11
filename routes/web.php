@@ -29,6 +29,8 @@ Route::resource('getEducation', EducationList::class);
 Route::controller(Landing::class)->group(function () {
     Route::get('/', 'index');
     Route::get('about', 'about');
+    Route::get('contact', 'contact');
+    Route::get('portfolio', 'portfolio');
     Route::get('maintenance', 'maintenance');
 });
 
