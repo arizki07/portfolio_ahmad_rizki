@@ -88,8 +88,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-7 ftco-animate text-center">
-                <h2 style="margin-bottom: 20px"><span>About</span> me</h2>
-                <p class="mb-0"><a href="/" class="btn btn-primary py-3 px-5">Back to home</a></p>
+                <h2 style="margin-bottom: 20px"><a href="/"><span>Home</span></a> - About</h2>
             </div>
         </div>
     </div>

@@ -20,7 +20,6 @@ class UserSeeder extends Seeder
                 'name' => 'Ahmad Rizki',
                 'email' => 'ahmadrizki0704@gmail.com',
                 'password' => bcrypt('Rizki.123'),
-                'foto' => Str::random(10) . '.png',
                 'birtday' => '2001-04-07',
                 'alamat' => 'Blok Kavling Karanganyar Jamblang. Kec.Jamblang. Kabupaten Cirebon, RT.02/RW.01',
                 'status' => 1,

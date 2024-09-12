@@ -32,6 +32,7 @@ Route::controller(Landing::class)->group(function () {
     Route::get('contact', 'contact');
     Route::get('portfolio', 'portfolio');
     Route::get('maintenance', 'maintenance');
+    Route::get('pengembangan', 'pengembangan');
 });
 
 Route::controller(Authentication::class)->group(function () {

@@ -50,4 +50,8 @@ class Landing extends Controller
     {
         return view('products.landing.maintenance');
     }
+    public function pengembangan()
+    {
+        return view('products.landing.pengembangan');
+    }
 }

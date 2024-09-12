@@ -113,6 +113,11 @@
                 opacity: 1;
             }
         }
+
+        .name {
+            color: black;
+
+        }
     </style>
 @endsection
 
@@ -171,6 +176,7 @@
                 <div class="counter-wrap ftco-animate d-flex mt-md-3">
                     <div class="text">
                         <p><a href="#" class="btn btn-primary py-3 px-3">Preview CV</a></p>
+                        <p><a href="{{ url('contact') }}" class="btn btn-warning py-3 px-3">Contact Me</a></p>
                     </div>
                 </div>
             </div>
@@ -281,11 +287,9 @@
         </div>
 
         @if ($project->isEmpty())
-            <!-- Display Alert when no projects are available -->
             <div class="alert alert-warning" role="alert">
                 <div class="d-flex">
                     <div>
-                        <!-- Download SVG icon from http://tabler-icons.io/i/exclamation-triangle -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24"
                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                             fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -304,12 +308,20 @@
             <div class="row no-gutters">
                 @foreach ($project->take(3) as $item)
                     <div class="col-md-4 mb-4">
-                        <div class="card" style="max-width: 350px;"> <!-- Increased width -->
-                            <img src="{{ asset('storage/my_project/' . $item->foto) }}"
-                                class="card-img-top zoom-image" alt="{{ $item->nama }}">
+                        <div class="card" style="max-width: 350px;">
+                            <!-- Trigger the modal by clicking the image or name -->
+                            <a href="#" data-toggle="modal" data-target="#projectModal{{ $item->id }}">
+                                <img src="{{ asset('storage/my_project/' . $item->foto) }}"
+                                    class="card-img-top zoom-image" alt="{{ $item->nama }}">
+                            </a>
                             <div class="card-body">
                                 <div class="text mt-3">
-                                    <h3 class="heading"><a href="#">{{ $item->nama }}</a></h3>
+                                    <h3 class="heading">
+                                        <a href="#" data-toggle="modal"
+                                            data-target="#projectModal{{ $item->id }}">
+                                            {{ $item->nama }}
+                                        </a>
+                                    </h3>
                                     <div class="d-flex align-items-center mb-3 meta">
                                         <p class="mb-0">
                                             <span class="mr-2">
@@ -318,16 +330,20 @@
                                         <div class="status">
                                             @if ($item->status == 1)
                                                 <span class="status-dot status-dot-animated status-green"
-                                                    style="font-size:11px"></span> <b class="text-green">Complete</b>
+                                                    style="font-size:11px"></span>
+                                                <b class="text-green">Complete</b>
                                             @elseif ($item->status == 2)
                                                 <span class="status-dot status-dot-animated status-blue"
-                                                    style="font-size:11px"></span> <b class="text-blue">Progress</b>
+                                                    style="font-size:11px"></span>
+                                                <b class="text-blue">Progress</b>
                                             @elseif ($item->status == 3)
                                                 <span class="status-dot status-dot-animated status-red"
-                                                    style="font-size:11px"></span> <b class="text-red">Pending</b>
+                                                    style="font-size:11px"></span>
+                                                <b class="text-red">Pending</b>
                                             @else
                                                 <span class="status-dot status-dot-animated text-gray"
-                                                    style="font-size:11px"></span> <b class="text-gray">Unknown</b>
+                                                    style="font-size:11px"></span>
+                                                <b class="text-gray">Unknown</b>
                                             @endif
                                         </div>
                                         </p>
@@ -339,7 +355,6 @@
                 @endforeach
             </div>
         @endif
-
         <div class="text-center mt-4">
             <a href="{{ url('maintenance') }}" class="btn btn-primary">View All Projects</a>
         </div>
@@ -474,5 +489,62 @@
     </div>
 </section>
 
+@section('modal')
+    @foreach ($project as $item)
+        <!-- Modal for each project -->
+        <div class="modal fade" id="projectModal{{ $item->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="projectModalLabel{{ $item->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center">
+                            <!-- Gambar di sebelah kiri -->
+                            <div class="col-md-4">
+                                <img src="{{ asset('storage/my_project/' . $item->foto) }}" class="img-fluid"
+                                    alt="{{ $item->nama }}" style="max-height: 550px; object-fit: cover;">
+
+                            </div>
+                            <!-- Nama proyek dan informasi di sebelah kanan -->
+                            <div class="col-md-8 d-flex flex-column justify-content-between">
+                                <p>
+                                <div class="status">
+                                    {{ \Carbon\Carbon::parse($item->tgl_project)->format('d M, Y') }}
+                                    @if ($item->status == 1)
+                                        <span class="status-dot status-dot-animated status-green"
+                                            style="font-size:11px"></span>
+                                        <b class="text-green">Complete</b>
+                                    @elseif ($item->status == 2)
+                                        <span class="status-dot status-dot-animated status-blue"
+                                            style="font-size:11px"></span>
+                                        <b class="text-blue">Progress</b>
+                                    @elseif ($item->status == 3)
+                                        <span class="status-dot status-dot-animated status-red"
+                                            style="font-size:11px"></span>
+                                        <b class="text-red">Pending</b>
+                                    @else
+                                        <span class="status-dot status-dot-animated text-gray"
+                                            style="font-size:11px"></span>
+                                        <b class="text-gray">Unknown</b>
+                                    @endif
+                                </div>
+                                </p>
+                                <p class="name">{{ $item->nama }}</p>
+                                <p>{{ $item->keterangan }}</p>
+                                <a href="{{ $item->demo_url }}" target="_blank" class="btn btn-danger view-demo-btn">
+                                    View Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+@endsection
 
 @endsection

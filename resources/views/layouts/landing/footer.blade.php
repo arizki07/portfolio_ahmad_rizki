@@ -77,11 +77,14 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 <ul class="ftco-footer-social list-unstyled d-flex justify-content-center mb-4">
-                    <li class="ftco-animate mx-2"><a href="#"><span class="icon-facebook"></span></a></li>
-                    <li class="ftco-animate mx-2"><a href="#"><span class="icon-instagram"></span></a></li>
-                    <li class="ftco-animate mx-2"><a href="#"><span class="icon-linkedin"></span></a></li>
-                    <li class="ftco-animate mx-2"><a href="#"><span class="icon-whatsapp"></span></a></li>
-                    <li class="ftco-animate mx-2"><a href="#"><span class="icon-github"></span></a></li>
+                    <li class="ftco-animate mx-2"><a href="https://www.facebook.com/rizki.redriver" target="_blank"><span
+                                class="icon-facebook"></span></a></li>
+                    <li class="ftco-animate mx-2"><a href="https://www.instagram.com/ahmdrrizki/" target="_blank"><span
+                                class="icon-instagram"></span></a></li>
+                    <li class="ftco-animate mx-2"><a href="https://www.linkedin.com/in/ahmad-rizki-6a82522aa/"
+                            target="_blank"><span class="icon-linkedin"></span></a></li>
+                    <li class="ftco-animate mx-2"><a href="https://github.com/arizki07" target="_blank"><span
+                                class="icon-github"></span></a></li>
                 </ul>
 
                 <p>
