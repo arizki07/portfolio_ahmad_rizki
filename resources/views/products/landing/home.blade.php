@@ -152,7 +152,7 @@
                 <div class="img-about img d-flex align-items-stretch">
                     <div class="overlay"></div>
                     <div class="img d-flex align-self-stretch align-items-center"
-                        style="background-image:url(landing/images/rizki.jpg); width: 100%; background-size: cover; background-position: center; min-height: 300px;">
+                        style="background-image:url(landing/images/rizki.JPG); width: 100%; background-size: cover; background-position: center; min-height: 300px;">
                     </div>
                 </div>
             </div>
