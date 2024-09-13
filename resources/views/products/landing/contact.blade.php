@@ -137,7 +137,7 @@
             </div>
 
             <div class="col-md-6 d-flex">
-                <div class="img" style="background-image: url(landing/images/iki.jpg);"></div>
+                <div class="img" style="background-image: url(landing/images/iki.JPG);"></div>
             </div>
         </div>
     </div>
