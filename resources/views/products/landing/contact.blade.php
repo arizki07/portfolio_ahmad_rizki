@@ -35,6 +35,13 @@
             /* Ensures the content (text and buttons) stays in front */
         }
     </style>
+    {{-- <script type="text/javascript">
+        var onloadCallback = function() {
+            grecaptcha.render('html_element', {
+                'sitekey': '6Le7Z0EqAAAAAHHrGzOtZvFTj_bC-Wnm9js6FpqO'
+            });
+        };
+    </script> --}}
 @endsection
 <section class="ftco-section ftco-hireme img" style="position: relative; min-height: 460px;">
     <div class="background-blur"></div>
@@ -121,12 +128,8 @@
                     <div class="form-group">
                         <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
                     </div>
-                    <div class="form-group">
-                        <strong>Google Captcha :</strong>
-                        {!! NoCaptcha::renderJs() !!}
-                        {!! NoCaptcha::display() !!}
-                    </div>
-                    <div class="form-group">
+                    <div class="g-recaptcha" data-sitekey="6Lf1gUEqAAAAAF4pRW2IQEFu1N46lmPo_tpE9tgS"></div>
+                    <div class="form-group mt-3">
                         <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
                     </div>
                 </form>
@@ -139,4 +142,5 @@
         </div>
     </div>
 </section>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 @endsection
